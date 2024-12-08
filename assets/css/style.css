@@ -1,0 +1,26 @@
+body{
+    background-image: url('../backgroundimg.jpg');
+    width: 100%; /* Full width */
+    height: 100vh; /* Full height of the viewport */
+    background-size: cover; /* Ensure the image fills the container */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-position: center;
+}
+
+/* Style for the table */
+table {
+    width: 100%; /* Adjust table width */
+    border-collapse: collapse; /* Merge borders for cleaner appearance */
+}
+
+/* Borders for table, rows, and cells */
+table, th, td {
+    border: 2px solid black !important; /* Solid black border */
+}
+
+.logo-style{
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    width: 8rem;
+}

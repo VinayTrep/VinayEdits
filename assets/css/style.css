@@ -24,3 +24,7 @@ table, th, td {
     z-index: -1;
     width: 8rem;
 }
+
+td{
+    padding: 0.25rem !important;
+}

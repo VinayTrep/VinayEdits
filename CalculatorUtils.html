@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="This page is used to calculate repeate ratios" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Calculator Utils</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="CalculatorUtils.html">Calculator Utils</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ImageExtractor.html">Image Extractor</a>
+                </li>
+        </div>
+    </nav>
+    <div>
+        <img src="./assets/vinaylogo.png" alt="logo" class="logo-style">
+    </div>
+    <div class="container-fluid">
+        <div class="row d-flex h-100">
+            <div class="col-sm-4 p-3">
+                <div class="row">
+                    <h1 class="text-center">Repeat Calculator</h1>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="">
+                                <form action="" onsubmit="handleRepeatSubmit(event)" id="myForm">
+                                    <th scope="col">
+                                        <input type="text" class="form-control" placeholder="Standered Value"
+                                            aria-label="Unit 1" id="unit1" name="unit1">
+                                    </th>
+                                    <th scope="col">
+                                        <input type="text" class="form-control" placeholder="Unit 2" aria-label="Unit 2"
+                                            id="unit2" name="unit2">
+                                    </th>
+                                    <th scope="col">
+                                        <input type="text" class="form-control" placeholder="Unit 3" aria-label="Unit 3"
+                                            id="unit3" name="unit3">
+                                    </th>
+                                    <th scope="col">
+                                        <input type="text" class="form-control" placeholder="Unit 4" aria-label="Unit 4"
+                                            id="unit4" name="unit4">
+                                    </th>
+                                    <th scope="col">
+                                        <input type="text" class="form-control" placeholder="Unit 5" aria-label="Unit 5"
+                                            id="unit5" name="unit5">
+                                    </th>
+                                    <th scope="col">
+                                        <button type="submit" class="btn btn-primary">Calculate</button>
+                                    </th>
+
+                                </form>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesOne" class="  font-bold"> </th>
+                                <td id="rowOneColTwo"></td>
+                                <td id="rowOneColThree"></td>
+                                <td id="rowOneColFour"></td>
+                                <td id="rowOneColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesTwo" class="  font-bold"></th>
+
+                                <td id="rowTwoColTwo"></td>
+                                <td id="rowTwoColThree"></td>
+                                <td id="rowTwoColFour"></td>
+                                <td id="rowTwoColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesThree" class="  font-bold"></th>
+
+                                <td id="rowThreeColTwo"></td>
+                                <td id="rowThreeColThree"></td>
+                                <td id="rowThreeColFour"></td>
+                                <td id="rowThreeColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesFour" class="  font-bold"></th>
+
+                                <td id="rowFourColTwo"></td>
+                                <td id="rowFourColThree"></td>
+                                <td id="rowFourColFour"></td>
+                                <td id="rowFourColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesFive" class="  font-bold"></th>
+
+                                <td id="rowFiveColTwo"></td>
+                                <td id="rowFiveColThree"></td>
+                                <td id="rowFiveColFour"></td>
+                                <td id="rowFiveColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesSix" class="  font-bold"></th>
+
+                                <td id="rowSixColTwo"></td>
+                                <td id="rowSixColThree"></td>
+                                <td id="rowSixColFour"></td>
+                                <td id="rowSixColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesSeven" class="  font-bold"></th>
+
+                                <td id="rowSevenColTwo"></td>
+                                <td id="rowSevenColThree"></td>
+                                <td id="rowSevenColFour"></td>
+                                <td id="rowSevenColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesEight" class="  font-bold"></th>
+
+                                <td id="rowEightColTwo"></td>
+                                <td id="rowEightColThree"></td>
+                                <td id="rowEightColFour"></td>
+                                <td id="rowEightColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesNine" class="  font-bold"></th>
+
+                                <td id="rowNineColTwo"></td>
+                                <td id="rowNineColThree"></td>
+                                <td id="rowNineColFour"></td>
+                                <td id="rowNineColFive"></td>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th scope="row" id="lcmTimesTen" class="  font-bold"></th>
+
+                                <td id="rowTenColTwo"></td>
+                                <td id="rowTenColThree"></td>
+                                <td id="rowTenColFour"></td>
+                                <td id="rowTenColFive"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row h-25">
+                    <p class="text-secondary"> <i class="fa fa-copyright" aria-hidden="true"></i> Developed By Vinay LJ
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-4 p-3">
+
+
+                <h1>Conditional Calculator</h1>
+                <div class="d-flex">
+                    <input type="number" class="form-control w-25" id="num1" placeholder="Enter a number" required>
+                    <button type="submit" onclick="handleConditionalSubmit()" class="btn btn-primary">Calculate</button>
+                </div>
+
+                <table class="table table-striped table-bordered mt-3">
+
+                    <tbody class="text-center">
+                        <tr style="height: 40px;">
+                            <td scope="row" id="1"> </td>
+                            <td id="2"></td>
+                            <td id="3"></td>
+                            <td id="4"></td>
+                            <td id="5"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="6"></td>
+                            <td id="7"></td>
+                            <td id="8"></td>
+                            <td id="9"></td>
+                            <td id="10"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="11"></td>
+                            <td id="12"></td>
+                            <td id="13"></td>
+                            <td id="14"></td>
+                            <td id="15"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="16"></td>
+                            <td id="17"></td>
+                            <td id="18"></td>
+                            <td id="19"></td>
+                            <td id="20"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="21"></td>
+                            <td id="22"></td>
+                            <td id="23"></td>
+                            <td id="24"></td>
+                            <td id="25"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="26"></td>
+                            <td id="27"></td>
+                            <td id="28"></td>
+                            <td id="29"></td>
+                            <td id="30"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="31"></td>
+                            <td id="32"></td>
+                            <td id="33"></td>
+                            <td id="34"></td>
+                            <td id="35"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="36"></td>
+                            <td id="37"></td>
+                            <td id="38"></td>
+                            <td id="39"></td>
+                            <td id="40"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="41"></td>
+                            <td id="42"></td>
+                            <td id="43"></td>
+                            <td id="44"></td>
+                            <td id="45"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="46"></td>
+                            <td id="47"></td>
+                            <td id="48"></td>
+                            <td id="49"></td>
+                            <td id="50"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-sm-4 p-3">
+                <h1>Conditional Calculator</h1>
+                <div class="d-flex">
+                    <input type="number" class="form-control w-25" id="tableCalcInp" placeholder="Enter a number"
+                        required>
+                    <button type="submit" onclick="handleTableCalculatorSubmit()"
+                        class="btn btn-primary">Calculate</button>
+                </div>
+
+                <table class="table table-striped table-bordered mt-3">
+                    <tbody class="text-center">
+                        <tr style="height: 40px;">
+                            <td id="101"></td>
+                            <td id="111"></td>
+                            <td id="121"></td>
+                            <td id="131"></td>
+                            <td id="141"></td>
+                            <td id="151"></td>
+                            <td id="161"></td>
+                            <td id="171"></td>
+                            <td id="181"></td>
+                            <td id="191"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="102"></td>
+                            <td id="112"></td>
+                            <td id="122"></td>
+                            <td id="132"></td>
+                            <td id="142"></td>
+                            <td id="152"></td>
+                            <td id="162"></td>
+                            <td id="172"></td>
+                            <td id="182"></td>
+                            <td id="192"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="103"></td>
+                            <td id="113"></td>
+                            <td id="123"></td>
+                            <td id="133"></td>
+                            <td id="143"></td>
+                            <td id="153"></td>
+                            <td id="163"></td>
+                            <td id="173"></td>
+                            <td id="183"></td>
+                            <td id="193"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="104"></td>
+                            <td id="114"></td>
+                            <td id="124"></td>
+                            <td id="134"></td>
+                            <td id="144"></td>
+                            <td id="154"></td>
+                            <td id="164"></td>
+                            <td id="174"></td>
+                            <td id="184"></td>
+                            <td id="194"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="105"></td>
+                            <td id="115"></td>
+                            <td id="125"></td>
+                            <td id="135"></td>
+                            <td id="145"></td>
+                            <td id="155"></td>
+                            <td id="165"></td>
+                            <td id="175"></td>
+                            <td id="185"></td>
+                            <td id="195"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="106"></td>
+                            <td id="116"></td>
+                            <td id="126"></td>
+                            <td id="136"></td>
+                            <td id="146"></td>
+                            <td id="156"></td>
+                            <td id="166"></td>
+                            <td id="176"></td>
+                            <td id="186"></td>
+                            <td id="196"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="107"></td>
+                            <td id="117"></td>
+                            <td id="127"></td>
+                            <td id="137"></td>
+                            <td id="147"></td>
+                            <td id="157"></td>
+                            <td id="167"></td>
+                            <td id="177"></td>
+                            <td id="187"></td>
+                            <td id="197"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="108"></td>
+                            <td id="118"></td>
+                            <td id="128"></td>
+                            <td id="138"></td>
+                            <td id="148"></td>
+                            <td id="158"></td>
+                            <td id="168"></td>
+                            <td id="178"></td>
+                            <td id="188"></td>
+                            <td id="198"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="109"></td>
+                            <td id="119"></td>
+                            <td id="129"></td>
+                            <td id="139"></td>
+                            <td id="149"></td>
+                            <td id="159"></td>
+                            <td id="169"></td>
+                            <td id="179"></td>
+                            <td id="189"></td>
+                            <td id="199"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td id="110"></td>
+                            <td id="120"></td>
+                            <td id="130"></td>
+                            <td id="140"></td>
+                            <td id="150"></td>
+                            <td id="160"></td>
+                            <td id="170"></td>
+                            <td id="180"></td>
+                            <td id="190"></td>
+                            <td id="200"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <script src="./utils.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

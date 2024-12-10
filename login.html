@@ -25,7 +25,7 @@
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <button type="submit" onclick="handleLoginSubmit()">submit</button>
@@ -36,22 +36,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function handleLoginSubmit() {
-            const correctPassword = "12345"; // Set your desired password
-            let userPassword = document.getElementById("password").value;
-            console.log(userPassword);
-
-            if (userPassword === correctPassword) {
-                alert("Access granted!You will be redirected.");
-                window.location.href = "./vinaySoftwares.html";
-            } else {
-
-                alert("Access denied!Incorrect Password");
-
-            }
-        }
-    </script>
+    <script src="./assets/js/login.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>

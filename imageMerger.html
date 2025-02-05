@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Image Extractor</title>
+    <title>Image Merger</title>
 </head>
 
 <body>
@@ -37,36 +37,35 @@
         <img src="./assets/vinaylogo.png" alt="logo" class="logo-style">
     </div>
     <div class="container">
-
         <div class="row d-flex justify-content-center h-100 flex-column align-items-center">
             <div>
-                <h1>Image Extractor</h1>
+                <h1>Image Merger</h1>
+                <input type="file" id="fileInput" multiple accept=".bmp">
+                <button onclick="askForOrder()">Proceed</button>
+                <div id="orderContainer" style="display:none;"></div>
+                <button id="mergeButton" onclick="mergeImages()" style="display:none;">Merge</button>
 
-                <label for="noOfImages">FILE</label>
-                <input type="number" id="noOfImages" value="2" required>
-                <label for="noOfTimes">CARD</label>
-                <input type="number" id="noOfTimes" value="2" required>
-                <input class="btn" type="file" id="upload" accept="image/bmp">
-                <canvas id="canvas" style="display:none;"></canvas>
-                <button type="button" class="btn btn-danger" onClick="window.location.reload()">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                </button>
+                <!-- Progress Bar -->
+                <div class="progress mt-3" style="display: none;" id="progressBarContainer">
+                    <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"
+                        aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+
+                <br>
             </div>
-
         </div>
         <div class="sticky-top">
-            <button id="saveButton" style="display:none;" class="btn btn-primary">Save</button>
+            <a id="downloadLink" style="display:none" class="btn btn-primary">Save</a>
         </div>
         <div class="row mt-4 p-3 border rounded">
-            <div id="finisedOutput"></div>
+            <canvas id="canvas" class="w-100"></canvas>
         </div>
     </div>
-    <script src="./assets/js/ImageExtractor.js"></script>
+    <script src="../VinayEdits/assets/js/imageMerger.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/765de15f12.js" crossorigin="anonymous"></script>
-
 </body>
 
 </html>

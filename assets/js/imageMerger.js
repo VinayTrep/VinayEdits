@@ -108,7 +108,7 @@ async function mergeImages() {
         const bmpBlob = isOneBitBMP === true ? canvasTo1BitBlackAndWhiteBMP(canvas) : convertTo24BitBMP(canvas);
         const downloadLink = document.getElementById('downloadLink');
         downloadLink.href = URL.createObjectURL(bmpBlob);
-        downloadLink.download = isRenameFile === true ? "merged_image.bmp" : fileName + ".bmp";
+        downloadLink.download = isRenameFile === true ?  fileName + ".bmp" :  "merged_image.bmp";
         downloadLink.style.display = 'block';
         downloadLink.textContent = "save";
 

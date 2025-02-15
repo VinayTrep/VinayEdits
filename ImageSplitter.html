@@ -47,12 +47,18 @@
                 <input class="form-control mb-2" type="file" id="upload" accept="image/bmp">
                 <label for="numberOfSections">Number of Sections:</label>
                 <input class="form-control mb-2" type="number" id="numberOfSections" value="1" min="1">
+                <div class="d-flex">
+                    <div id="endRowType" class="m-2"></div>
+                    <div id="globalLinesPerImage" class="m-2"></div>
+                </div>
                 <button class="btn btn-primary mb-3" onclick="generateSectionInputs()">Set Sections</button>
                 <div id="imageInfo" class="alert alert-info mt-2" style="display: none;"></div>
                 <div id="sectionsContainer"></div>
-                <button class="btn btn-success mt-3" onclick="startProcessing()">Process Image</button>
+                <div class="d-flex sticky-top">
+                    <button class="btn btn-success mt-3" onclick="startProcessing()">Process Image</button>
+                    <button class="btn btn-success mt-3" id="saveButton" style="display: none;">Save BMP Images</button>
+                </div>
                 <div id="finishedOutput" class="mt-4"></div>
-                <button class="btn btn-success mt-3" id="saveButton" style="display: none;">Save BMP Images</button>
             </div>
 
         </div>

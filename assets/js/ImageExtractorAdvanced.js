@@ -1,6 +1,38 @@
-
 const sectionsContainer = document.getElementById('sectionsContainer');
 const outputContainer = document.getElementById('finishedOutput');
+let endRowType = 'absolute'; // Global variable to track end row type (absolute/relative)
+let globalLinesPerImage = 2; // Default global lines per image
+
+function setEndRowType(type) {
+    endRowType = type;
+}
+
+// Populate the #endRowType div with the dropdown for selecting absolute or relative end row type
+document.addEventListener("DOMContentLoaded", function() {
+    const dropdownDiv = document.getElementById("endRowType");
+    dropdownDiv.className = "form-group";
+    dropdownDiv.innerHTML = `
+        <label for="endRowTypeSelect">End Row Type:</label>
+        <select id="endRowTypeSelect" class="form-control mb-3">
+            <option value="absolute">Absolute</option>
+            <option value="relative">Relative(offset)</option>
+        </select>
+    `;
+    document.getElementById("endRowTypeSelect").addEventListener("change", function() {
+        setEndRowType(this.value);
+    });
+
+    const globalLinesDiv = document.getElementById("globalLinesPerImage");
+    globalLinesDiv.className = "form-group";
+    globalLinesDiv.innerHTML = `
+        <label for="globalLinesPerImageSelect">Global Lines Per Image:</label>
+        <input id="globalLinesPerImageSelect" type="number" class="form-control mb-3" value="2" min="1">
+    `;
+    document.getElementById("globalLinesPerImageSelect").addEventListener("input", function() {
+        globalLinesPerImage = Number(this.value) || 10;
+        updateAllLinesPerImage();
+    });
+});
 
 function generateSectionInputs() {
     sectionsContainer.innerHTML = '';
@@ -18,22 +50,20 @@ function generateSectionInputs() {
     reader.onload = function (e) {
         const img = new Image();
         img.onload = function () {
-            // Show image details
             let imageInfo = document.getElementById('imageInfo');
             if (!imageInfo) {
                 imageInfo = document.createElement('div');
                 imageInfo.id = 'imageInfo';
-                imageInfo.className = 'alert alert-info mt-3';
+                imageInfo.className = 'alert alert-info mt-3 sticky-top';
                 document.querySelector('.container').insertBefore(imageInfo, sectionsContainer);
             }
             imageInfo.innerHTML = `<strong>Selected Image:</strong> ${file.name} <br>
                        <strong>Dimensions:</strong> ${img.width} x ${img.height} pixels`;
 
-            imageInfo.dataset.height = img.height; // Store the height in dataset
-
+            imageInfo.dataset.height = img.height;
             imageInfo.style.display = 'block';
 
-            let previousEndRow = 0; // Start row for the first section
+            let previousEndRow = 0;
 
             for (let i = 0; i < numberOfSections; i++) {
                 let sectionDiv = document.createElement('div');
@@ -52,7 +82,7 @@ function generateSectionInputs() {
                         </div>
                         <div class="col">
                             <label>Lines Per Image:</label>
-                            <input class="form-control linesPerImageInput" type="number" id="linesPerImage${i}" required readonly>
+                            <input class="form-control linesPerImageInput" type="number" id="linesPerImage${i}" required>
                         </div>
                     </div>
                     <input type="hidden" id="startRow${i}" value="${previousEndRow}">
@@ -60,58 +90,85 @@ function generateSectionInputs() {
 
                 sectionsContainer.appendChild(sectionDiv);
 
-
-
-                // Attach event listeners to update linesPerImage dynamically
-                document.getElementById(`endRow${i}`).addEventListener('input', () => updateLinesPerImage(i));
-                document.getElementById(`noOfImages${i}`).addEventListener('input', () => updateLinesPerImage(i));
-
-
-                function validateEndRow(input, i) {
-                    let imgHeight = Number(document.getElementById('imageInfo').dataset.height); // Get stored height
-                    let newEndRow = Number(input.value);
-
-                    if (newEndRow > imgHeight) {
-                        alert(`End Row cannot exceed ${imgHeight}. Setting to max height.`);
-                        input.value = imgHeight; // Auto-correct
-                    }
-
-                    previousEndRow = Number(input.value);
-                    if (i + 1 < numberOfSections) {
-                        document.getElementById(`startRow${i + 1}`).value = previousEndRow;
-                    }
-                }
-
-                // Attach event listeners
-                document.getElementById(`endRow${i}`).addEventListener('input', function () {
+                document.getElementById(`endRow${i}`).addEventListener('change', function () {
                     validateEndRow(this, i);
                 });
 
+                document.getElementById(`noOfImages${i}`).addEventListener('input', function () {
+                    updateLinesPerImage(i);
+                });
+
+                document.getElementById(`linesPerImage${i}`).addEventListener('input', function () {
+                    validateLinesPerImage(i);
+                });
             }
         };
         img.src = e.target.result;
     };
-
     reader.readAsDataURL(file);
 }
 
-// Function to update linesPerImage dynamically
-function updateLinesPerImage(index) {
-    let startRow = Number(document.getElementById(`startRow${index}`).value);
-    let endRow = Number(document.getElementById(`endRow${index}`).value);
-    let noOfImages = Number(document.getElementById(`noOfImages${index}`).value);
-    let linesPerImageField = document.getElementById(`linesPerImage${index}`);
+function validateEndRow(input, i) {
+    let imgHeight = Number(document.getElementById('imageInfo').dataset.height);
+    let newEndRow = Number(input.value);
+    let previousEndRow = i > 0 ? Number(document.getElementById(`endRow${i - 1}`).value) : 0;
 
-    if (!isNaN(endRow) && !isNaN(noOfImages) && endRow > startRow) {
-        if (noOfImages === 1) {
-            linesPerImageField.value = endRow - startRow; // Auto-set if only 1 image
-        } else {
-            linesPerImageField.value = ''; // Allow user input for multiple images
-            linesPerImageField.removeAttribute("readonly");
-        }
-    } else {
-        linesPerImageField.value = '';
+    if (endRowType === 'relative') {
+        newEndRow = previousEndRow + newEndRow;
     }
+
+    if (newEndRow > imgHeight || i === document.getElementById('numberOfSections').value - 1) {
+        newEndRow = imgHeight; // Automatically set last section to full remaining rows
+    }
+
+    input.value = newEndRow;
+
+    if (i + 1 < document.getElementById('numberOfSections').value) {
+        document.getElementById(`startRow${i + 1}`).value = newEndRow;
+    }
+
+    updateLinesPerImage(i);
+}
+
+function updateLinesPerImage(i) {
+    let startRow = Number(document.getElementById(`startRow${i}`).value);
+    let endRow = Number(document.getElementById(`endRow${i}`).value);
+    let numberOfImages = Number(document.getElementById(`noOfImages${i}`).value);
+    let linesPerImageInput = document.getElementById(`linesPerImage${i}`);
+
+    if (numberOfImages === 1) {
+        linesPerImageInput.value = endRow - startRow;
+        linesPerImageInput.readOnly = true;
+    } else {
+        linesPerImageInput.value = globalLinesPerImage;
+        linesPerImageInput.readOnly = false;
+    }
+}
+
+function updateAllLinesPerImage() {
+    const sections = document.getElementsByClassName('linesPerImageInput');
+    for (let input of sections) {
+        if (!input.readOnly) {
+            input.value = globalLinesPerImage;
+        }
+    }
+}
+
+function validateLinesPerImage(i) {
+    let linesPerImageInput = document.getElementById(`linesPerImage${i}`);
+    let linesPerImage = Number(linesPerImageInput.value);
+
+    if (isNaN(linesPerImage) || linesPerImage < 0) {
+        alert("Lines Per Image must be a positive number.");
+        linesPerImageInput.value = "";
+    }
+}
+
+
+function updateEndRow(index) {
+    const endRowInput = document.getElementById(`endRow${index}`);
+    endRowInput.value = "";
+    endRowInput.placeholder = endRowType === "relative" ? "Enter rows to add" : "Enter absolute row";
 }
 
 

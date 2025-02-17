@@ -8,7 +8,7 @@ function setEndRowType(type) {
 }
 
 // Populate the #endRowType div with the dropdown for selecting absolute or relative end row type
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const dropdownDiv = document.getElementById("endRowType");
     dropdownDiv.className = "form-group";
     dropdownDiv.innerHTML = `
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <option value="relative">Relative(offset)</option>
         </select>
     `;
-    document.getElementById("endRowTypeSelect").addEventListener("change", function() {
+    document.getElementById("endRowTypeSelect").addEventListener("change", function () {
         setEndRowType(this.value);
     });
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <label for="globalLinesPerImageSelect">Global Lines Per Image:</label>
         <input id="globalLinesPerImageSelect" type="number" class="form-control mb-3" value="2" min="1">
     `;
-    document.getElementById("globalLinesPerImageSelect").addEventListener("input", function() {
+    document.getElementById("globalLinesPerImageSelect").addEventListener("input", function () {
         globalLinesPerImage = Number(this.value) || 10;
         updateAllLinesPerImage();
     });
@@ -54,7 +54,7 @@ function generateSectionInputs() {
             if (!imageInfo) {
                 imageInfo = document.createElement('div');
                 imageInfo.id = 'imageInfo';
-                imageInfo.className = 'alert alert-info mt-3 sticky-top';
+                imageInfo.className = 'alert alert-info mt-3 sticky-top ';
                 document.querySelector('.container').insertBefore(imageInfo, sectionsContainer);
             }
             imageInfo.innerHTML = `<strong>Selected Image:</strong> ${file.name} <br>
@@ -171,9 +171,26 @@ function updateEndRow(index) {
     endRowInput.placeholder = endRowType === "relative" ? "Enter rows to add" : "Enter absolute row";
 }
 
+function updateProgressBar(progress) {
+    const progressContainer = document.getElementById('progressBarContainer');
+    const progressBar = document.getElementById('progressBar');
+
+    progressContainer.style.display = 'block'; // Ensure visibility
+    progressBar.style.width = `${progress}%`;
+    progressBar.style.backgroundColor = 'blue'; // Ensuring color update
+    progressBar.textContent = `${Math.round(progress)}%`;
+
+    // Ensure repaint
+    requestAnimationFrame(() => {
+        progressBar.setAttribute('aria-valuenow', progress);
+    });
+}
 
 
-function startProcessing() {
+async function startProcessing() {
+    const progressBarContainer = document.getElementById('progressBarContainer');
+    progressBarContainer.style.display = 'block'; // Show progress bar
+
     const fileInput = document.getElementById('upload');
     if (fileInput.files.length === 0) {
         alert("Please upload a BMP image.");
@@ -197,7 +214,7 @@ function startProcessing() {
                     linesPerImage: Number(document.getElementById(`linesPerImage${i}`).value)
                 });
             }
-
+            updateProgressBar(25); // 25% for loading
             processImage(img, sections);
         };
         img.src = e.target.result;
@@ -212,7 +229,7 @@ function processImage(img, sections) {
     outputContainer.innerHTML = '';
 
     let allCanvasElements = []; // Store all canvases for saving
-
+    let progress = 25; // Initial progress
     sections.forEach((section, secIndex) => {
         let totalRows = section.endRow - section.startRow;
         let currentRow = section.startRow;
@@ -232,6 +249,8 @@ function processImage(img, sections) {
             outputContainer.appendChild(canvas);
             allCanvasElements.push({ canvas, secIndex, imageIndex: i }); // Collect all canvases
         });
+        progress += 75/sections.length;
+        updateProgressBar(progress); // 25% for loading
     });
 
     let saveButton = document.getElementById('saveButton');
